@@ -1,0 +1,112 @@
+--------------------------------------Tests for LEGACY crypto policy -------------------------------------
+-------------------------------------------------------------------------------------------------
+Tests all supported TLS verisons in LEGACY crypto policy
+Test LEGACY supporting conections with TLS ver. 1.0
+Test LEGACY supporting conections with TLS ver. 1.1
+Test LEGACY supporting conections with TLS ver. 1.2
+Test LEGACY supporting conections with TLS ver. 1.3
+
+Expected result: s_client will successfully connect with every specifed TLS version
+-------------------------------------------------------------------------------------------------
+Test 3DES availability in LEGACY crypto policy
+
+Expected result: s_client will successfully connect using 3DES ciphersuit
+-------------------------------------------------------------------------------------------------
+Test RC4 availability in LEGACY crypto policy
+
+Expected result: s_client will successfully connect using RC4 ciphersuit
+-------------------------------------------------------------------------------------------------
+Test if CAMELLIA ciphersuit is disabled in LEGACY crypto policy
+
+Expected result: s_client will FAIL to connect with all avalable ciphers
+-------------------------------------------------------------------------------------------------
+Test if ARIA ciphersuit is disabled in LEGACY crypto policy
+
+Expected result: s_client will FAIL to connect with all avalable ciphers
+-------------------------------------------------------------------------------------------------
+Test if SEED ciphersuit is disabled in LEGACY crypto policy
+
+Expected result: s_client will FAIL to connect with all avalable ciphers
+-------------------------------------------------------------------------------------------------
+Test if IDEA ciphersuit is disabled in LEGACY crypto policy
+
+Expected result: s_client will FAIL to connect with all avalable ciphers
+-------------------------------------------------------------------------------------------------
+--------------------------------------Tests for LEGACY crypto policy -------------------------------------
+
+
+
+
+--------------------------------------Tests for DEFAULT crypto policy ------------------------------------
+Tests all supported TLS verisons in DEFAULT crypto policy
+Test DEFAULT supporting conections with TLS ver. 1.2
+Test DEFAULT supporting conections with TLS ver. 1.3
+
+Expected result: s_client will successfully connect with every specifed TLS version
+-------------------------------------------------------------------------------------------------
+Tests all unsupported TLS verisons in DEFAULT crypto policy
+Test DEFAULT not supporting conections with TLS ver. 1.0
+Test DEFAULT not supporting conections with TLS ver. 1.1
+
+Expected result: s_client will FAIL to connect with every specifed TLS version
+-------------------------------------------------------------------------------------------------
+Test 3DES unavailability in DEFAULT crypto policy
+
+Expected result: s_client will FAIL to connect using 3DES ciphersuit
+-------------------------------------------------------------------------------------------------
+Test RC4 unavailability in DEFAULT crypto policy
+
+Expected result: s_client will FAIL to connect using RC4 ciphersuit
+-------------------------------------------------------------------------------------------------
+Test if CAMELLIA ciphersuit is disabled in DEFAULT crypto policy
+
+Expected result: s_client will FAIL to connect with all avalable ciphers
+-------------------------------------------------------------------------------------------------
+Test if ARIA ciphersuit is disabled in DEFAULT crypto policy
+
+Expected result: s_client will FAIL to connect with all avalable ciphers
+-------------------------------------------------------------------------------------------------
+Test if SEED ciphersuit is disabled in DEFAULT crypto policy
+
+Expected result: s_client will FAIL to connect with all avalable ciphers
+-------------------------------------------------------------------------------------------------
+Test if IDEA ciphersuit is disabled in DEFAULT crypto policy
+
+Expected result: s_client will FAIL to connect with all avalable ciphers
+-------------------------------------------------------------------------------------------------
+--------------------------------------Tests for DEFAULT crypto policy ------------------------------------
+
+
+
+
+EXTRA BUG? Reports:
+
+-------------------------------Tests for s_client with tls1.3 seems broken--------------------------------
+Problem: When using s_clinet with tls1.3 (default), the "-cipher" parameter seems ignored and connection
+defaults to TLS_AES_256_GCM_SHA384.
+
+Result: Connection using tls1.3 is estabilished using TLS_AES_256_GCM_SHA384 cipher.
+
+Expected result: Connection tries to be estabilished using cipher specifed by the "-cipher" flag
+
+Bonus: s_client fails to recoginze TLS_AES_256_GCM_SHA384 cipher, when specifed using the "-cipher" flag
+-------------------------------Tests for s_client with tls1.3 seems broken--------------------------------
+
+---------------------------------------openssl ciphers seems broken---------------------------------------
+Problem: When listing ciphers using openssl ciphers there are always lsited these:
+- TLS_AES_256_GCM_SHA384
+- TLS_CHACHA20_POLY1305_SHA256 
+- TLS_AES_128_GCM_SHA256
+- TLS_AES_128_CCM_SHA256
+even when not requiered.
+
+Example: "openssl ciphers SEED"
+Result: "TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256:TLS_AES_128_CCM_SHA256:DHE-RSA-SEED-SHA:DHE-DSS-SEED-SHA:ADH-SEED-SHA:SEED-SHA"
+
+Expected result: "DHE-RSA-SEED-SHA:DHE-DSS-SEED-SHA:ADH-SEED-SHA:SEED-SHA"
+---------------------------------------openssl ciphers seems broken---------------------------------------
+
+NOTES:
+Can't test DH and RSA with different Key sizes without longer research to tell them apart.
+Can't test DSA because only available DSA is with ECC and all ECC are disabled.
+
